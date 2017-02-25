@@ -1,12 +1,13 @@
 import os
+import shutil
 
 path = os.path.abspath(os.path.dirname(__file__))
 print("Current directory : " + path)
 
 
-def delete_pychache_dirs(current_path):
+def delete_pycache_dirs(current_path):
     """
-    Delete __pychache__ directories.
+    Delete __pycache__ directories.
     :param current_path:
     :return:
     """
@@ -21,11 +22,13 @@ def delete_pychache_dirs(current_path):
             print('No directory')
             continue
 
-        if item == '__pychache__':
+        if item == '__pycache__':
             print('DELETE!!')
-            os.rmdir(path_name)
-        else:
-            print('No pychache')
-            delete_pychache_dirs(path_name)
+            # Delete the directory when even if object contains
+            shutil.rmtree(path_name)
 
-delete_pychache_dirs(path)
+        else:
+            print('No __pycache__')
+            delete_pycache_dirs(path_name)
+
+delete_pycache_dirs(path)
